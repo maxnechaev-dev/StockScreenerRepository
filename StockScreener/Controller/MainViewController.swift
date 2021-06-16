@@ -10,6 +10,9 @@ import UIKit
 class MainViewController: UIViewController {
 
     lazy var searchController = UISearchController()
+    let networkService = NetworkService()
+    let networkDataFetcher = NetworkDataFetcher()
+    let mostActive: MostActive? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()

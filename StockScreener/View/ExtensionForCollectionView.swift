@@ -17,13 +17,21 @@ class SetupCollectionView: MainViewController {
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        15
+
+        //return mostActive?.count ?? 0
+        100
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCell
         cell.backgroundColor = .white
         cell.layer.cornerRadius = 9
+        
+        guard let element = mostActive?[indexPath.row] else { return cell }
+        cell.companyTicker.text = element.symbol
+        cell.companyName.text = element.companyName
+        cell.companyPrice.text = "\(element.iexRealtimePrice)"
+        cell.companyChangePrice.text = "\(element.change) (\(element.changePercent * 100)%)"
         
         return cell
     }
