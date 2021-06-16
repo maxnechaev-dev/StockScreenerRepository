@@ -12,12 +12,19 @@ class MainViewController: UIViewController {
     lazy var searchController = UISearchController()
     let networkService = NetworkService()
     let networkDataFetcher = NetworkDataFetcher()
-    let mostActive: MostActive? = nil
+    var mostActive: MostActive? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationController()
         setupCollectionView()
+
+        networkDataFetcher.fetchStocks(urlString: ApiData.trendUrl) { (mostActive) in
+            guard let mostActive = mostActive else { return }
+            self.mostActive = mostActive
+            self.collectionView.reloadData()
+        }
+        
     }
     
     //MARK: - Настройка Navigation и Search
