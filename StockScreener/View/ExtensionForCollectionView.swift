@@ -30,7 +30,24 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         cell.companyTicker.text = element.symbol
         cell.companyName.text = element.companyName
         cell.companyPrice.text = "\(element.iexRealtimePrice)"
-        cell.companyChangePrice.text = "\(element.change) (\(element.changePercent * 100)%)"
+        
+        //Сделать изменение цены красной при минусе, зеленой при плюсе
+        if element.change > 0 {
+            cell.companyChangePrice.textColor = .green
+        } else { cell.companyChangePrice.textColor = .red }
+        
+        //Округление до двух знаков после запятой
+        let elementChange = element.change
+        var elementChangeString: String {
+            return String(format: "%.2f", elementChange)
+        }
+        
+        let elementChangePercent = element.changePercent * 100
+        var elementChangePercentString: String {
+            return String(format: "%.2f", elementChangePercent)
+        }
+        
+        cell.companyChangePrice.text = "\(elementChangeString) (\(elementChangePercentString)%)"
         
         return cell
     }
