@@ -49,6 +49,10 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         cell.companyChangePrice.text = "\(elementChangeString) (\(elementChangePercentString)%)"
         
+        //Поставить логотипы компаний
+        takeLogo(elementSymbol: element.symbol, imageView: cell.companyLogo)
+        
+        
         return cell
     }
 }

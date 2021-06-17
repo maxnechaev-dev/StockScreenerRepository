@@ -9,7 +9,7 @@ import Foundation
 
 struct ApiData {
     
-    static let tokenForIExapis = "pk_f264faaab1d94c1fbd943a8c66219a0e"
+    static let tokenForIExapis = "sk_72487b2d2a744574a47183726ead7ba5"
         
     static let trendUrl = "https://cloud.iexapis.com/stable/stock/market/list/mostactive?token=\(tokenForIExapis)"
         

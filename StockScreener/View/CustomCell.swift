@@ -16,7 +16,7 @@ class CustomCell: UICollectionViewCell {
         cl.contentMode = .scaleAspectFit
         cl.clipsToBounds = true
         //cl.backgroundColor = .black
-        cl.image = UIImage(named: "appleLogoBlack")
+        //cl.image = UIImage(named: "appleLogoBlack")
         cl.layer.cornerRadius = 12
         return cl
     }()
