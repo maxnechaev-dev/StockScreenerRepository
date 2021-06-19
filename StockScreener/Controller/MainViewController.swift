@@ -10,8 +10,7 @@ import UIKit
 class MainViewController: UIViewController {
 
     lazy var searchController = UISearchController()
-    let networkDataFetcher = NetworkDataFetcher()
-    let networkDataFetcherLogo = NetworkDataFetcherLogo()
+    let dataFetcherService = DataFetcherService()
     var mostActive: MostActive? = nil
     
     override func viewDidLoad() {
@@ -19,7 +18,7 @@ class MainViewController: UIViewController {
         setupNavigationController()
         setupCollectionView()
 
-        networkDataFetcher.fetchStocks(urlString: ApiData.trendUrl) { (mostActive) in
+        dataFetcherService.fetchStocks { (mostActive) in
             guard let mostActive = mostActive else { return }
             self.mostActive = mostActive
             //print("This is in viewDidLoad \(mostActive)")
@@ -35,7 +34,7 @@ class MainViewController: UIViewController {
         let symbolForLogo = elementSymbol //получаем текущий symbol
         var urlLogo = "https://cloud.iexapis.com/stable/stock/\(symbolForLogo)/logo?token=sk_72487b2d2a744574a47183726ead7ba5"
         
-        networkDataFetcherLogo.fetchStocksLogo(urlString: urlLogo) { (companyLogo) in
+        dataFetcherService.fetchStocksLogo(urlString: urlLogo) { (companyLogo) in
             guard let companyLogo = companyLogo else { return }
             //print("this is companyLogo \(companyLogo)")
             let url = URL(string: companyLogo.url)!
@@ -72,7 +71,6 @@ class MainViewController: UIViewController {
         collectionView.backgroundColor = .secondarySystemBackground
         collectionView.delegate = self
         collectionView.dataSource = self
-        //collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 200).isActive = true
         collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true

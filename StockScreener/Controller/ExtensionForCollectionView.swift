@@ -32,7 +32,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         if element.iexRealtimePrice != nil {
             cell.companyPrice.text = "\(element.iexRealtimePrice)"
-        } else { cell.companyPrice.text = "0" }
+        } else { cell.companyPrice.text = "\(element.close)" }
         
         //Сделать изменение цены красной при минусе, зеленой при плюсе
         if element.change > 0 {
