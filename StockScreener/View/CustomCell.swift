@@ -87,7 +87,7 @@ class CustomCell: UICollectionViewCell {
         companyTicker.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
         companyTicker.leadingAnchor.constraint(equalTo: companyLogo.trailingAnchor, constant: 10).isActive = true
         companyTicker.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.35).isActive = true
-        companyTicker.trailingAnchor.constraint(greaterThanOrEqualTo: contentView.trailingAnchor, constant: -200).isActive = true
+        //companyTicker.trailingAnchor.constraint(greaterThanOrEqualTo: contentView.trailingAnchor, constant: -200).isActive = true
     }
     
     func positionCompanyName() {

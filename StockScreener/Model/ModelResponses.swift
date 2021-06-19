@@ -7,7 +7,7 @@ struct MostActiveElement: Codable {
     let companyName: String
     let change: Double
     let changePercent: Double
-    let iexRealtimePrice: Double
+    let iexRealtimePrice: Double?
 }
 
 typealias MostActive = [MostActiveElement]
