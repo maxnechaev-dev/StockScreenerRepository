@@ -7,15 +7,25 @@
 
 import UIKit
 
-//класс для того, чтобы поместить сюда настройку collection, не получилось
-class SetupCollectionView: MainViewController {
 
+//MARK: - extension UICollectionViewDelegate
+
+extension MainViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard let models = mostActive else { return }
+        let model = models[indexPath.row]
+        
+        let infoViewController = InfoViewController(model: model)
+        navigationController?.pushViewController(infoViewController, animated: true)
+    }
     
 }
 
-//MARK: - extension UICollectionViewDelegate, UICollectionViewDataSource
+//MARK: - extension UICollectionViewDataSource
 
-extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
         return mostActive?.count ?? 0
@@ -78,7 +88,4 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
         UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("You select item, man!")
-    }
 }

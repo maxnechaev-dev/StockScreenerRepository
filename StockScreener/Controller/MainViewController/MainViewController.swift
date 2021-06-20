@@ -10,9 +10,13 @@ import UIKit
 class MainViewController: UIViewController {
 
     lazy var searchController = UISearchController()
+    
+    //MARK: - Зависимости
     let dataFetcherService = DataFetcherService()
     var mostActive: MostActive? = nil
     
+    //MARK: - viewDidLoad
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationController()
@@ -21,7 +25,6 @@ class MainViewController: UIViewController {
         dataFetcherService.fetchStocks { (mostActive) in
             guard let mostActive = mostActive else { return }
             self.mostActive = mostActive
-            //print("This is in viewDidLoad \(mostActive)")
 
             self.collectionView.reloadData()
         }
