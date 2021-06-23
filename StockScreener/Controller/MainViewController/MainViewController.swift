@@ -14,22 +14,50 @@ class MainViewController: UIViewController {
     //MARK: - Зависимости
     let dataFetcherService = DataFetcherService()
     var mostActive: MostActive? = nil
+    let customCell = CustomCell()
     
     //MARK: - viewDidLoad
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupNavigationController()
+        setupMenuBar()
         setupCollectionView()
+        fetchData()
 
+  
+    }
+    
+    //MARK: - Создание MenuBar
+    
+    let menuBar: MenuBar = {
+        let mb = MenuBar()
+        mb.translatesAutoresizingMaskIntoConstraints = false
+        
+        return mb
+    }()
+    
+    private func setupMenuBar() {
+        view.addSubview(menuBar)
+        menuBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+        menuBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
+        menuBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+        menuBar.heightAnchor.constraint(equalToConstant: 35).isActive = true
+
+    }
+        
+    //MARK: - Функция по запросу данных их сети по модели
+
+    fileprivate func fetchData() {
         dataFetcherService.fetchStocks { (mostActive) in
             guard let mostActive = mostActive else { return }
             self.mostActive = mostActive
-
+            
             self.collectionView.reloadData()
         }
     }
-    
+        
     //MARK: - Функция по подключению логотипов компаний
     
     func takeLogo(elementSymbol: String, imageView: UIImageView) {
@@ -53,9 +81,10 @@ class MainViewController: UIViewController {
     func setupNavigationController() {
         title = "Stock Screener"
         view.backgroundColor = .systemGroupedBackground
-        navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.searchController = searchController
         searchController.searchBar.placeholder = "Ticker or company name "
+        navigationController?.navigationBar.prefersLargeTitles = true
+
     }
     
     //MARK: - Настройка Collection view
@@ -74,7 +103,7 @@ class MainViewController: UIViewController {
         collectionView.backgroundColor = .secondarySystemBackground
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
+        collectionView.topAnchor.constraint(equalTo: menuBar.bottomAnchor, constant: 0).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true

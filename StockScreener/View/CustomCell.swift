@@ -60,6 +60,18 @@ class CustomCell: UICollectionViewCell {
         //ccp.backgroundColor = .red
         return ccp
     }()
+    
+    //Изменение цены за определенный период
+    let favoriteStock: UIButton = {
+        let star = UIButton()
+        star.translatesAutoresizingMaskIntoConstraints = false
+        let image = UIImage(named: "star")
+        star.imageView?.contentMode = .scaleAspectFit
+        star.setImage(image, for: .normal)
+        //star.backgroundColor = .red
+        //star.tintColor = .black
+        return star
+    }()
 
     
     //Размещение объектов на contentView
@@ -71,7 +83,28 @@ class CustomCell: UICollectionViewCell {
         positionCompanyName()
         positionCompanyPrice()
         positionCompanyChangePrice()
+        positionFavoriteStock()
+        
+        favoriteStock.addTarget(self, action: #selector(addFavorite), for: .touchUpInside)
 
+
+    }
+    
+    //MARK: - Доделать изменение цвета кнопки
+    @objc func addFavorite (sender: UIButton){
+        
+        let image = UIImage(named: "star")
+        let imageFill = UIImage(named: "starFill")
+        var currentImage = image
+        
+        if currentImage == image  {
+            sender.setImage(imageFill, for: .normal)
+            currentImage = imageFill
+        } else if currentImage == imageFill {
+            sender.setImage(image, for: .normal)
+            currentImage = image
+        }
+        
     }
     
     func positionCompanyLogo() {
@@ -87,6 +120,14 @@ class CustomCell: UICollectionViewCell {
         companyTicker.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
         companyTicker.leadingAnchor.constraint(equalTo: companyLogo.trailingAnchor, constant: 10).isActive = true
         companyTicker.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.35).isActive = true
+        //companyTicker.trailingAnchor.constraint(greaterThanOrEqualTo: contentView.trailingAnchor, constant: -200).isActive = true
+    }
+    
+    func positionFavoriteStock() {
+        contentView.addSubview(favoriteStock)
+        favoriteStock.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
+        favoriteStock.leadingAnchor.constraint(equalTo: companyTicker.trailingAnchor, constant: 5).isActive = true
+        favoriteStock.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.35).isActive = true
         //companyTicker.trailingAnchor.constraint(greaterThanOrEqualTo: contentView.trailingAnchor, constant: -200).isActive = true
     }
     

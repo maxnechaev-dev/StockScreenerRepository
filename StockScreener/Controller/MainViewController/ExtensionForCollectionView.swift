@@ -40,9 +40,10 @@ extension MainViewController: UICollectionViewDataSource {
         cell.companyTicker.text = element.symbol
         cell.companyName.text = element.companyName
         
-        if element.iexRealtimePrice != nil {
-            cell.companyPrice.text = "\(element.iexRealtimePrice)"
-        } else { cell.companyPrice.text = "\(element.close)" }
+        if let price = element.iexRealtimePrice {
+            cell.companyPrice.text = "\(price)"
+        } else if let price = element.close { cell.companyPrice.text = "\(price)" }
+          else {cell.companyPrice.text = "nil"}
         
         //Сделать изменение цены красной при минусе, зеленой при плюсе
         if element.change > 0 {
@@ -85,7 +86,7 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        UIEdgeInsets(top: 10, left: 20, bottom: 20, right: 20)
     }
     
 }
