@@ -16,12 +16,6 @@ class MenuCell: UICollectionViewCell {
     
     //MARK: - Настройка анимации нажатия на вкладку
     
-    override var isHighlighted: Bool {
-        didSet {
-            textLabel.font = isHighlighted ? .boldSystemFont(ofSize: 20) : .none
-        }
-    }
-    
     override var isSelected: Bool {
         didSet {
             textLabel.font = isSelected ? .boldSystemFont(ofSize: 20) : .none

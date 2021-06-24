@@ -11,7 +11,7 @@ class MenuBar: UIView {
     
     let cellId = "cellId"
     let cellsArray = ["Trending", "Favorite"]
-    
+    var mainViewController: MainViewController?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,6 +31,8 @@ class MenuBar: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Создание и установка полосы скролла под объектами Trending, Favorite
+
     var horizontalBarAnchor: NSLayoutConstraint?
     
     func setupHorizontalBar() {
@@ -77,8 +79,10 @@ extension MenuBar: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let x = CGFloat(indexPath.item) * frame.width / 2
         horizontalBarAnchor?.constant = x
-        
+
         UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {self.layoutIfNeeded()}, completion: nil)
+        
+        mainViewController?.scrollToMenuIndex(menuIndex: indexPath.item)
     }
 }
 
@@ -90,6 +94,7 @@ extension MenuBar: UICollectionViewDataSource{
 
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MenuCell
         let title = cellsArray[indexPath.item]
         cell.textLabel.text = title
