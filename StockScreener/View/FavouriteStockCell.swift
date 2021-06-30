@@ -38,7 +38,6 @@ class FavouriteStockCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupCollectionview()
-        fetchDataFavouriteStock()
     }
     //MARK: - Разметка collectionview
     
@@ -53,11 +52,11 @@ class FavouriteStockCell: UICollectionViewCell {
     //MARK: - Функция по запросу данных их сети по модели
     
 
-    func fetchDataFavouriteStock() {
+    func fetchDataFavouriteStock(symbol: String) {
         
         guard let symbolForStock = symbols.first else { return }
         
-        let urlForRequest = "https://cloud.iexapis.com/stable/stock/\(symbolForStock)/quote?token=sk_72487b2d2a744574a47183726ead7ba5"
+        let urlForRequest = "https://cloud.iexapis.com/stable/stock/\(symbol)/quote?token=sk_72487b2d2a744574a47183726ead7ba5"
         
         dataFetcherService.fetchStockBySymbol(urlString: urlForRequest) { (mostActiveElement) in
             guard let mostActive = mostActiveElement else { return }
@@ -121,13 +120,12 @@ extension FavouriteStockCell: UICollectionViewDataSource {
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        
         let cell = collectionview.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CustomCell
         cell.backgroundColor = .white
         cell.layer.cornerRadius = 9
 
-        
+        let symbolForRequest = symbols[indexPath.item]
+        fetchDataFavouriteStock(symbol: symbolForRequest)
         
         guard let element = mostActiveElement else { return cell }
         cell.companyTicker.text = element.symbol
@@ -161,7 +159,6 @@ extension FavouriteStockCell: UICollectionViewDataSource {
         
         //Поставить логотипы компаний
         takeLogo(elementSymbol: element.symbol, imageView: cell.companyLogo)
-        
         
         return cell
     }
