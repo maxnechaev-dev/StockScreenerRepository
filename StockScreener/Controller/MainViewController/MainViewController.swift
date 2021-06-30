@@ -10,6 +10,9 @@ import UIKit
 class MainViewController: UIViewController {
 
     lazy var searchController = UISearchController()
+//    var identifier = "cellId"
+//    var favouriteCellID = "favouriteCellID"
+
     
     //MARK: - viewDidLoad
     
@@ -73,14 +76,17 @@ class MainViewController: UIViewController {
     
     //MARK: - Настройка Collection view
     
-    let collectionView: UICollectionView = {
+    lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.isPagingEnabled = true
-        collectionView.register(TrendingStockCell.self, forCellWithReuseIdentifier: "cellId")
+        
+        collectionView.register(TrendingStockCell.self, forCellWithReuseIdentifier: "trendingCellID")
+        collectionView.register(FavouriteStockCell.self, forCellWithReuseIdentifier: "favouriteCellID")
+
 
         return collectionView
     }()

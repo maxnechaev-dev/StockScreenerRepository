@@ -25,4 +25,8 @@ class DataFetcherService {
     func fetchStocksLogo (urlString: String, completion: @escaping (CompanyLogo?) -> Void) {
         networkDataFetcher.fetchGenericJSONData(urlString: urlString, response: completion)
     }
+    
+    func fetchStockBySymbol (urlString: String, completion: @escaping (MostActiveElement?) -> Void) {
+        networkDataFetcher.fetchGenericJSONData(urlString: urlString, response: completion)
+    }
 }

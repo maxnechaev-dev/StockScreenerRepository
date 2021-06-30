@@ -1,24 +1,26 @@
 //
-//  TrendingStockCell.swift
+//  FavouriteStockCell.swift
 //  StockScreener
 //
-//  Created by Max Nechaev on 24.06.2021.
+//  Created by Max Nechaev on 30.06.2021.
 //
 
 import UIKit
 
-class TrendingStockCell: UICollectionViewCell {
-        
+class FavouriteStockCell: UICollectionViewCell {
+    
     //MARK: - Зависимости
     let dataFetcherService = DataFetcherService()
-    var mostActive: MostActive? = nil
+    var mostActiveElement: MostActiveElement? = nil
     let customCell = CustomCell()
     let mainViewController = MainViewController()
     
     var cellId = "Cell"
+    let symbols = ["MRIN", "AAPL", "AMC", "GE"]
+    
     
     //MARK: - Создание collectionview
-
+    
     lazy var collectionview: UICollectionView = {
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -36,10 +38,10 @@ class TrendingStockCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupCollectionview()
-        fetchData()
+        fetchDataFavouriteStock()
     }
     //MARK: - Разметка collectionview
-
+    
     func setupCollectionview() {
         self.addSubview(collectionview)
         collectionview.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
@@ -49,16 +51,25 @@ class TrendingStockCell: UICollectionViewCell {
     }
     
     //MARK: - Функция по запросу данных их сети по модели
+    
 
-    func fetchData() {
-        dataFetcherService.fetchStocks { (mostActive) in
-            guard let mostActive = mostActive else { return }
-            self.mostActive = mostActive
+    func fetchDataFavouriteStock() {
+        
+        guard let symbolForStock = symbols.first else { return }
+        
+        let urlForRequest = "https://cloud.iexapis.com/stable/stock/\(symbolForStock)/quote?token=sk_72487b2d2a744574a47183726ead7ba5"
+        
+        dataFetcherService.fetchStockBySymbol(urlString: urlForRequest) { (mostActiveElement) in
+            guard let mostActive = mostActiveElement else { return }
+            self.mostActiveElement = mostActive
+            print("Я запрос данных fetchDataFavouriteStock")
+            print("Данные по запросу уже тут: \(mostActive)")
             
             self.collectionview.reloadData()
+            
         }
     }
-        
+    
     //MARK: - Функция по подключению логотипов компаний
     
     func takeLogo(elementSymbol: String, imageView: UIImageView) {
@@ -86,13 +97,13 @@ class TrendingStockCell: UICollectionViewCell {
 
 //MARK: - UICollectionViewDelegate
 
-extension TrendingStockCell: UICollectionViewDelegate {
+extension FavouriteStockCell: UICollectionViewDelegate {
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        guard let models = mostActive else { return }
-        let model = models[indexPath.row]
+        guard let models = mostActiveElement else { return }
+        let model = models
         
         let infoViewController = InfoViewController(model: model)
         mainViewController.pushViewController(infoVC: infoViewController)
@@ -102,20 +113,23 @@ extension TrendingStockCell: UICollectionViewDelegate {
 
 //MARK: - UICollectionViewDataSource
 
-extension TrendingStockCell: UICollectionViewDataSource {
+extension FavouriteStockCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return mostActive?.count ?? 0
+        return symbols.count ?? 0
     }
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        
         let cell = collectionview.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CustomCell
         cell.backgroundColor = .white
         cell.layer.cornerRadius = 9
+
         
         
-        guard let element = mostActive?[indexPath.row] else { return cell }
+        guard let element = mostActiveElement else { return cell }
         cell.companyTicker.text = element.symbol
         cell.companyName.text = element.companyName
         
@@ -155,7 +169,7 @@ extension TrendingStockCell: UICollectionViewDataSource {
 
 //MARK: - UICollectionViewDelegateFlowLayout
 
-extension TrendingStockCell: UICollectionViewDelegateFlowLayout {
+extension FavouriteStockCell: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
@@ -171,3 +185,4 @@ extension TrendingStockCell: UICollectionViewDelegateFlowLayout {
         UIEdgeInsets(top: 10, left: 20, bottom: 20, right: 20)
     }
 }
+

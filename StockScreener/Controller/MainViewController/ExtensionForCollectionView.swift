@@ -32,9 +32,13 @@ extension MainViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! TrendingStockCell
-//        let colors: [UIColor] = [.blue, .red]
-//        cell.backgroundColor = colors[indexPath.item]
+        var identifier = "trendingCellID"
+        
+        if indexPath.item == 1 {
+            identifier = "favouriteCellID"
+        }
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
         
         return cell
     }
