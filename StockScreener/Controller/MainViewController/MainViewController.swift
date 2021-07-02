@@ -8,6 +8,12 @@
 import UIKit
 
 class MainViewController: UIViewController {
+    
+    func cellWasPressed(model: MostActiveElement) {
+        present(InfoViewController(model: model), animated: true, completion: nil)
+        navigationController?.pushViewController(InfoViewController(model: model), animated: true)
+    }
+    
 
     lazy var searchController = UISearchController()
 //    var identifier = "cellId"

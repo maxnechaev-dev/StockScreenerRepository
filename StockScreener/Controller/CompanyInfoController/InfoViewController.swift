@@ -37,6 +37,35 @@ class InfoViewController: UIViewController {
         setupTopScreener()
     }
     
+//    let blackBackView = UIView()
+//    
+//    func moveFromCells() {
+//        
+//        if let keyWindow = UIApplication.shared.keyWindow {
+//            let view = UIView(frame: keyWindow.frame)
+//            
+//            blackBackView.frame = keyWindow.frame
+//            blackBackView.backgroundColor = .black
+//            blackBackView.alpha = 0
+//            view.backgroundColor = .secondarySystemBackground
+//            keyWindow.addSubview(blackBackView)
+//            
+//
+//            view.frame = CGRect(x: keyWindow.frame.width - 40, y: keyWindow.frame.height - 40, width: 40, height: 40)
+//            keyWindow.addSubview(view)
+//            
+//            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut) {
+//                //view.frame = keyWindow.frame
+//                view.frame = CGRect(x: 0, y: 200, width: keyWindow.frame.width, height: keyWindow.frame.height - 200)
+//                self.blackBackView.alpha = 0.5
+//                
+//            } completion: { (completedAnimation) in
+//                print("I've completed the animation")
+//            }
+//
+//        }
+//    }
+    
     //MARK: - Настройка Navigation
     
     func setupNavigationControllerInfo() {

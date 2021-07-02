@@ -95,7 +95,10 @@ extension TrendingStockCell: UICollectionViewDelegate {
         let model = models[indexPath.row]
         
         let infoViewController = InfoViewController(model: model)
-        mainViewController.pushViewController(infoVC: infoViewController)
+        //infoViewController.moveFromCells()
+        
+        let infoVC = InfoVC(model: model)
+        infoVC.moveFromCells()
     }
     
 }

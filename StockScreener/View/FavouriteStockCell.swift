@@ -12,6 +12,7 @@ class FavouriteStockCell: UICollectionViewCell {
     //MARK: - Зависимости
     let dataFetcherService = DataFetcherService()
     var mostActiveElement: MostActiveElement? = nil
+    var mostActive: MostActive? = nil
     let customCell = CustomCell()
     let mainViewController = MainViewController()
     
@@ -61,10 +62,10 @@ class FavouriteStockCell: UICollectionViewCell {
         dataFetcherService.fetchStockBySymbol(urlString: urlForRequest) { (mostActiveElement) in
             guard let mostActive = mostActiveElement else { return }
             self.mostActiveElement = mostActive
-            print("Я запрос данных fetchDataFavouriteStock")
-            print("Данные по запросу уже тут: \(mostActive)")
+//            print("Я запрос данных fetchDataFavouriteStock")
+//            print("Данные по запросу уже тут: \(mostActive)")
             
-            self.collectionview.reloadData()
+            //self.collectionview.reloadData()
             
         }
     }
@@ -105,7 +106,9 @@ extension FavouriteStockCell: UICollectionViewDelegate {
         let model = models
         
         let infoViewController = InfoViewController(model: model)
-        mainViewController.pushViewController(infoVC: infoViewController)
+        
+        let infoVC = InfoVC(model: model)
+        infoVC.moveFromCells()
     }
     
 }
@@ -126,6 +129,7 @@ extension FavouriteStockCell: UICollectionViewDataSource {
 
         let symbolForRequest = symbols[indexPath.item]
         fetchDataFavouriteStock(symbol: symbolForRequest)
+        print(symbolForRequest)
         
         guard let element = mostActiveElement else { return cell }
         cell.companyTicker.text = element.symbol
