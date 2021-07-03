@@ -7,12 +7,17 @@
 
 import UIKit
 
+protocol TrendingStockCellDelegate: class {
+    func userDidSelect (model: MostActiveElement)
+}
+
 class TrendingStockCell: UICollectionViewCell {
+    
+    weak var delegate: TrendingStockCellDelegate?
         
     //MARK: - Зависимости
     let dataFetcherService = DataFetcherService()
     var mostActive: MostActive? = nil
-    let customCell = CustomCell()
     let mainViewController = MainViewController()
     
     var cellId = "Cell"
@@ -93,12 +98,7 @@ extension TrendingStockCell: UICollectionViewDelegate {
         
         guard let models = mostActive else { return }
         let model = models[indexPath.row]
-        
-        let infoViewController = InfoViewController(model: model)
-        //infoViewController.moveFromCells()
-        
-        let infoVC = InfoVC(model: model)
-        infoVC.moveFromCells()
+        delegate?.userDidSelect(model: model)
     }
     
 }

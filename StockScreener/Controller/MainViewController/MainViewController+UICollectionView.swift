@@ -12,16 +12,6 @@ import UIKit
 
 extension MainViewController: UICollectionViewDelegate {
     
-    
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//
-//        guard let models = mostActive else { return }
-//        let model = models[indexPath.row]
-//
-//        let infoViewController = InfoViewController(model: model)
-//        navigationController?.pushViewController(infoViewController, animated: true)
-//    }
-    
 }
 
 //MARK: - extension UICollectionViewDataSource
@@ -39,6 +29,15 @@ extension MainViewController: UICollectionViewDataSource {
         }
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
+        
+        if let trendingCell = cell as? TrendingStockCell {
+            trendingCell.delegate = self
+        }
+        
+        if let favouriteCell = cell as? FavouriteStockCell {
+            favouriteCell.delegate = self
+            favouriteCell.load()
+        }
         
         return cell
     }

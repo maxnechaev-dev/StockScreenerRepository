@@ -7,17 +7,24 @@
 
 import UIKit
 
+protocol FavouriteStockCellDelegate: class {
+    func userDidSelect (model: MostActiveElement)
+}
+
 class FavouriteStockCell: UICollectionViewCell {
+    
+    weak var delegate: FavouriteStockCellDelegate?
     
     //MARK: - Зависимости
     let dataFetcherService = DataFetcherService()
     var mostActiveElement: MostActiveElement? = nil
-    var mostActive: MostActive? = nil
+    var mostActive: MostActive = []
     let customCell = CustomCell()
     let mainViewController = MainViewController()
+    let service = FavouriteStockCellService()
     
     var cellId = "Cell"
-    let symbols = ["MRIN", "AAPL", "AMC", "GE"]
+    let symbols = ["MRIN", "AAPL", "AMC", "GE", "AMD"]
     
     
     //MARK: - Создание collectionview
@@ -50,25 +57,15 @@ class FavouriteStockCell: UICollectionViewCell {
         collectionview.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
     
-    //MARK: - Функция по запросу данных их сети по модели
+    //MARK: - Функция по запросу данных по модели
     
-
-    func fetchDataFavouriteStock(symbol: String) {
-        
-        guard let symbolForStock = symbols.first else { return }
-        
-        let urlForRequest = "https://cloud.iexapis.com/stable/stock/\(symbol)/quote?token=sk_72487b2d2a744574a47183726ead7ba5"
-        
-        dataFetcherService.fetchStockBySymbol(urlString: urlForRequest) { (mostActiveElement) in
-            guard let mostActive = mostActiveElement else { return }
-            self.mostActiveElement = mostActive
-//            print("Я запрос данных fetchDataFavouriteStock")
-//            print("Данные по запросу уже тут: \(mostActive)")
-            
-            //self.collectionview.reloadData()
-            
+    func load() {
+        service.loadFavouriteStocks(symbols: symbols) { [weak self] elements in
+            self?.mostActive = elements
+            self?.collectionview.reloadData()
         }
     }
+
     
     //MARK: - Функция по подключению логотипов компаний
     
@@ -102,13 +99,9 @@ extension FavouriteStockCell: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        guard let models = mostActiveElement else { return }
+        let models = mostActive[indexPath.row]
         let model = models
-        
-        let infoViewController = InfoViewController(model: model)
-        
-        let infoVC = InfoVC(model: model)
-        infoVC.moveFromCells()
+        delegate?.userDidSelect(model: model)
     }
     
 }
@@ -118,20 +111,16 @@ extension FavouriteStockCell: UICollectionViewDelegate {
 extension FavouriteStockCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return symbols.count ?? 0
+        return mostActive.count
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionview.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CustomCell
         cell.backgroundColor = .white
         cell.layer.cornerRadius = 9
 
-        let symbolForRequest = symbols[indexPath.item]
-        fetchDataFavouriteStock(symbol: symbolForRequest)
-        print(symbolForRequest)
         
-        guard let element = mostActiveElement else { return cell }
+        let element = mostActive[indexPath.row]
         cell.companyTicker.text = element.symbol
         cell.companyName.text = element.companyName
         

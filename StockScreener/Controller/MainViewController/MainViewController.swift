@@ -8,18 +8,7 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    
-    func cellWasPressed(model: MostActiveElement) {
-        present(InfoViewController(model: model), animated: true, completion: nil)
-        navigationController?.pushViewController(InfoViewController(model: model), animated: true)
-    }
-    
-
-    lazy var searchController = UISearchController()
-//    var identifier = "cellId"
-//    var favouriteCellID = "favouriteCellID"
-
-    
+        
     //MARK: - viewDidLoad
     
     override func viewDidLoad() {
@@ -69,15 +58,12 @@ class MainViewController: UIViewController {
         menuBar.heightAnchor.constraint(equalToConstant: 35).isActive = true
     }
     
-    //MARK: - Настройка Navigation и Search
+    //MARK: - Настройка Navigation
     
     func setupNavigationController() {
         title = "Stock Screener"
         view.backgroundColor = .systemGroupedBackground
-        navigationItem.searchController = searchController
-        searchController.searchBar.placeholder = "Ticker or company name "
         navigationController?.navigationBar.prefersLargeTitles = true
-
     }
     
     //MARK: - Настройка Collection view
@@ -106,6 +92,15 @@ class MainViewController: UIViewController {
         collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 50).isActive = true
+    }
+}
+
+extension MainViewController: TrendingStockCellDelegate, FavouriteStockCellDelegate {
+    func userDidSelect(model: MostActiveElement) {
+        
+        let infoVC = InfoVC(model: model)
+        infoVC.modalPresentationStyle = .formSheet
+        present(infoVC, animated: true, completion: nil)
     }
 }
 
