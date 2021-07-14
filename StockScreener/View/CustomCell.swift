@@ -78,6 +78,12 @@ class CustomCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: .zero)
         
+        layer.masksToBounds = false
+        layer.shadowOpacity = 0.10
+        layer.shadowRadius = 4
+        layer.shadowOffset = CGSize(width: 3, height: 5)
+        layer.shadowColor = UIColor.black.cgColor
+        
         positionCompanyLogo()
         positionCompanyTicker()
         positionCompanyName()
