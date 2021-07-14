@@ -20,3 +20,12 @@ typealias MostActive = [MostActiveElement]
 struct CompanyLogo: Codable {
     var url: String
 }
+
+
+struct CompanyInformation: Codable {
+    let industry: String?
+    let description: String?
+    let employees: Int?
+    let city: String?
+    let state: String?
+}
