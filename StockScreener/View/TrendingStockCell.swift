@@ -13,6 +13,7 @@ protocol TrendingStockCellDelegate: class {
 
 class TrendingStockCell: UICollectionViewCell {
     
+    let coreDataService = CoreDataService()
     weak var delegate: TrendingStockCellDelegate?
         
     //MARK: - Зависимости
@@ -69,7 +70,7 @@ class TrendingStockCell: UICollectionViewCell {
     func takeLogo(elementSymbol: String, imageView: UIImageView) {
         
         let symbolForLogo = elementSymbol //получаем текущий symbol
-        let urlLogo = "https://cloud.iexapis.com/stable/stock/\(symbolForLogo)/logo?token=sk_72487b2d2a744574a47183726ead7ba5"
+        let urlLogo = "https://cloud.iexapis.com/stable/stock/\(symbolForLogo)/logo?token=sk_df786d56dc4f49608540541174f42d4a"
         
         dataFetcherService.fetchStocksLogo(urlString: urlLogo) { (companyLogo) in
             guard let companyLogo = companyLogo else { return }
@@ -86,6 +87,20 @@ class TrendingStockCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Функция по добавление в избранное
+    
+    func addFavourite(cell: UICollectionViewCell) {
+        
+        guard let indexPathTapped = collectionview.indexPath(for: cell) else { return }
+        let element = mostActive![indexPathTapped.row]
+        print(element.symbol)
+        
+        if coreDataService.containsSymbol(with: element.symbol) {
+            coreDataService.deleteSymbol(with: element.symbol)
+        } else {
+            coreDataService.addSymbol(with: element.symbol)
+        }
+    }
 }
 
 
@@ -116,7 +131,7 @@ extension TrendingStockCell: UICollectionViewDataSource {
         let cell = collectionview.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CustomCell
         cell.backgroundColor = .white
         cell.layer.cornerRadius = 9
-        
+        cell.linkToTrending = self
         
         guard let element = mostActive?[indexPath.row] else { return cell }
         cell.companyTicker.text = element.symbol
@@ -150,6 +165,13 @@ extension TrendingStockCell: UICollectionViewDataSource {
         
         //Поставить логотипы компаний
         takeLogo(elementSymbol: element.symbol, imageView: cell.companyLogo)
+                
+        if coreDataService.containsSymbol(with: element.symbol) {
+            cell.favoriteStock.tintColor = .orange
+        } else {
+            cell.favoriteStock.tintColor = .lightGray
+        }
+        
         
         
         return cell

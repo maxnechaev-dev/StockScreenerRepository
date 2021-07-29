@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F552EC4126A85597007B0532 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F552EC4026A85597007B0532 /* CoreDataService.swift */; };
+		F552EC4526A8567C007B0532 /* StockScreener.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F552EC4326A8567C007B0532 /* StockScreener.xcdatamodeld */; };
+		F552EC4926A85701007B0532 /* Symbols+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F552EC4726A85701007B0532 /* Symbols+CoreDataClass.swift */; };
+		F552EC4A26A85701007B0532 /* Symbols+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F552EC4826A85701007B0532 /* Symbols+CoreDataProperties.swift */; };
+		F552EC4F26A8580D007B0532 /* SymbolsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F552EC4E26A8580D007B0532 /* SymbolsModel.swift */; };
 		F564A8DE2674ACE2006559E2 /* MainViewController+UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F564A8DD2674ACE1006559E2 /* MainViewController+UICollectionView.swift */; };
 		F564A8E12674AE89006559E2 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F564A8E02674AE89006559E2 /* CustomCell.swift */; };
 		F564A8E826791971006559E2 /* ApiData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F564A8E726791971006559E2 /* ApiData.swift */; };
@@ -31,9 +36,15 @@
 		F5E7410A266FE7EA005ED01E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E74109266FE7EA005ED01E /* MainViewController.swift */; };
 		F5E7410F266FE7EC005ED01E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5E7410E266FE7EC005ED01E /* Assets.xcassets */; };
 		F5E74112266FE7EC005ED01E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5E74110266FE7EC005ED01E /* LaunchScreen.storyboard */; };
+		F5F3E00F269F2D0500078849 /* FavouriteSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F3E00E269F2D0500078849 /* FavouriteSymbols.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F552EC4026A85597007B0532 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
+		F552EC4426A8567C007B0532 /* StockScreener.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StockScreener.xcdatamodel; sourceTree = "<group>"; };
+		F552EC4726A85701007B0532 /* Symbols+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Symbols+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F552EC4826A85701007B0532 /* Symbols+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Symbols+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F552EC4E26A8580D007B0532 /* SymbolsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolsModel.swift; sourceTree = "<group>"; };
 		F564A8DD2674ACE1006559E2 /* MainViewController+UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+UICollectionView.swift"; sourceTree = "<group>"; };
 		F564A8E02674AE89006559E2 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		F564A8E726791971006559E2 /* ApiData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiData.swift; sourceTree = "<group>"; };
@@ -60,6 +71,7 @@
 		F5E7410E266FE7EC005ED01E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F5E74111266FE7EC005ED01E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F5E74113266FE7EC005ED01E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F5F3E00E269F2D0500078849 /* FavouriteSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteSymbols.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +85,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F552EC3F26A85585007B0532 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				F552EC4026A85597007B0532 /* CoreDataService.swift */,
+				F552EC4E26A8580D007B0532 /* SymbolsModel.swift */,
+				F552EC4326A8567C007B0532 /* StockScreener.xcdatamodeld */,
+				F552EC4C26A85708007B0532 /* CoreDataCodeGen */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		F552EC4C26A85708007B0532 /* CoreDataCodeGen */ = {
+			isa = PBXGroup;
+			children = (
+				F552EC4726A85701007B0532 /* Symbols+CoreDataClass.swift */,
+				F552EC4826A85701007B0532 /* Symbols+CoreDataProperties.swift */,
+			);
+			path = CoreDataCodeGen;
+			sourceTree = "<group>";
+		};
 		F564A8E42674E5E6006559E2 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,7 +198,9 @@
 			children = (
 				F5E74105266FE7EA005ED01E /* AppDelegate.swift */,
 				F5E74107266FE7EA005ED01E /* SceneDelegate.swift */,
+				F552EC3F26A85585007B0532 /* CoreData */,
 				F564A8EF267A0BA9006559E2 /* Network */,
+				F5F3E00D269F2CB100078849 /* FavouriteSymbols  */,
 				F564A8ED267A0B8B006559E2 /* Model */,
 				F564A8E42674E5E6006559E2 /* View */,
 				F564A8F1267A0BB9006559E2 /* Controller */,
@@ -175,6 +209,14 @@
 				F5E74113266FE7EC005ED01E /* Info.plist */,
 			);
 			path = StockScreener;
+			sourceTree = "<group>";
+		};
+		F5F3E00D269F2CB100078849 /* FavouriteSymbols  */ = {
+			isa = PBXGroup;
+			children = (
+				F5F3E00E269F2D0500078849 /* FavouriteSymbols.swift */,
+			);
+			path = "FavouriteSymbols ";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,6 +292,9 @@
 				F564A906267E5F07006559E2 /* NetworkService.swift in Sources */,
 				F5B9B661269EFFB800665041 /* OtherInfoCell.swift in Sources */,
 				F564A8EB26791DB0006559E2 /* ModelResponses.swift in Sources */,
+				F552EC4126A85597007B0532 /* CoreDataService.swift in Sources */,
+				F552EC4A26A85701007B0532 /* Symbols+CoreDataProperties.swift in Sources */,
+				F552EC4526A8567C007B0532 /* StockScreener.xcdatamodeld in Sources */,
 				F5E7410A266FE7EA005ED01E /* MainViewController.swift in Sources */,
 				F564A909267E66A1006559E2 /* NetworkDataFetcher.swift in Sources */,
 				F57B4E592684CF3900788053 /* TrendingStockCell.swift in Sources */,
@@ -263,11 +308,14 @@
 				F5B9B65E269EFF9C00665041 /* PriceCell.swift in Sources */,
 				F564A8E12674AE89006559E2 /* CustomCell.swift in Sources */,
 				F5E0AD77268C668D00A07FF2 /* FavouriteStockCell.swift in Sources */,
+				F552EC4926A85701007B0532 /* Symbols+CoreDataClass.swift in Sources */,
 				F5E74106266FE7EA005ED01E /* AppDelegate.swift in Sources */,
+				F5F3E00F269F2D0500078849 /* FavouriteSymbols.swift in Sources */,
 				F5E74108266FE7EA005ED01E /* SceneDelegate.swift in Sources */,
 				F564A90C267E6C86006559E2 /* DataFetcherService.swift in Sources */,
 				F5B9B664269EFFD800665041 /* DescriptionCell.swift in Sources */,
 				F5B9B65A269EFF7B00665041 /* TitleCell.swift in Sources */,
+				F552EC4F26A8580D007B0532 /* SymbolsModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -459,6 +507,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		F552EC4326A8567C007B0532 /* StockScreener.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F552EC4426A8567C007B0532 /* StockScreener.xcdatamodel */,
+			);
+			currentVersion = F552EC4426A8567C007B0532 /* StockScreener.xcdatamodel */;
+			path = StockScreener.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = F5E740FA266FE7EA005ED01E /* Project object */;
 }

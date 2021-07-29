@@ -24,7 +24,7 @@ final class FavouriteStockCellService {
             completion (self.array)
         }
         for symbol in symbols {
-            let urlForRequest = "https://cloud.iexapis.com/stable/stock/\(symbol)/quote?token=sk_72487b2d2a744574a47183726ead7ba5"
+            let urlForRequest = "https://cloud.iexapis.com/stable/stock/\(symbol)/quote?token=sk_df786d56dc4f49608540541174f42d4a"
             
             dataFetcherService.fetchStockBySymbol(urlString: urlForRequest) { [weak self] (mostActiveElement) in
                 

@@ -9,6 +9,8 @@ import UIKit
 
 class MainViewController: UIViewController {
         
+    let coreDataService = CoreDataService()
+
     //MARK: - viewDidLoad
     
     override func viewDidLoad() {
@@ -17,11 +19,7 @@ class MainViewController: UIViewController {
         setupNavigationController()
         setupMenuBar()
         setupCollectionView()
-    }
-    
-    //MARK: - Пока не работает, поправить (пуш для класса TrendingStockCell)
-    func pushViewController(infoVC: InfoViewController) {
-        navigationController?.pushViewController(infoVC, animated: true)
+                
     }
     
     //MARK: - Настройка взаимодействия с MenuBar

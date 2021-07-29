@@ -58,7 +58,7 @@ class InfoVC: UIViewController {
 
     func takeCompanyInfo() {
         let currentSymbol = model.symbol
-        let urlInfo = "https://cloud.iexapis.com/stable/stock/\(currentSymbol)/company?token=sk_72487b2d2a744574a47183726ead7ba5"
+        let urlInfo = "https://cloud.iexapis.com/stable/stock/\(currentSymbol)/company?token=sk_df786d56dc4f49608540541174f42d4a"
 
         dataFetcherService.fetchStockInfoBySymbol(urlString: urlInfo) { companyInfo in
             guard let companyInformation = companyInfo else { return }
@@ -73,7 +73,7 @@ class InfoVC: UIViewController {
     func takeLogo(imageView: UIImageView) {
         
         let symbolForLogo = model.symbol //получаем текущий symbol
-        let urlLogo = "https://cloud.iexapis.com/stable/stock/\(symbolForLogo)/logo?token=sk_72487b2d2a744574a47183726ead7ba5"
+        let urlLogo = "https://cloud.iexapis.com/stable/stock/\(symbolForLogo)/logo?token=sk_df786d56dc4f49608540541174f42d4a"
         
         dataFetcherService.fetchStocksLogo(urlString: urlLogo) { (companyLogo) in
             guard let companyLogo = companyLogo else { return }

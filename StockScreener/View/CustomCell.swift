@@ -9,6 +9,9 @@ import UIKit
 
 class CustomCell: UICollectionViewCell {
     
+    var linkToTrending = TrendingStockCell()
+    
+    
     // Логотип компании
     let companyLogo: UIImageView = {
         let cl = UIImageView()
@@ -25,7 +28,7 @@ class CustomCell: UICollectionViewCell {
     let companyTicker: UILabel = {
         let ct = UILabel()
         ct.translatesAutoresizingMaskIntoConstraints = false
-        ct.text = "AAPL"
+        ct.text = ""
         ct.font = UIFont.boldSystemFont(ofSize: 18)
         //ct.backgroundColor = .yellow
         return ct
@@ -35,7 +38,7 @@ class CustomCell: UICollectionViewCell {
     let companyName: UILabel = {
         let cn = UILabel()
         cn.translatesAutoresizingMaskIntoConstraints = false
-        cn.text = "APPLE INC"
+        cn.text = ""
         cn.font = UIFont.systemFont(ofSize: 12)
         //cn.backgroundColor = .yellow
         return cn
@@ -63,21 +66,20 @@ class CustomCell: UICollectionViewCell {
     
     //Изменение цены за определенный период
     let favoriteStock: UIButton = {
-        let star = UIButton()
+        let star = UIButton(type: .system)
         star.translatesAutoresizingMaskIntoConstraints = false
-        let image = UIImage(named: "star")
+        let image = UIImage(named: "starNew")
         star.imageView?.contentMode = .scaleAspectFit
         star.setImage(image, for: .normal)
-        //star.backgroundColor = .red
-        //star.tintColor = .black
+        star.tintColor = .lightGray
+
         return star
     }()
-
     
     //Размещение объектов на contentView
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        
+                
         layer.masksToBounds = false
         layer.shadowOpacity = 0.10
         layer.shadowRadius = 4
@@ -93,22 +95,17 @@ class CustomCell: UICollectionViewCell {
         
         favoriteStock.addTarget(self, action: #selector(addFavorite), for: .touchUpInside)
 
-
     }
-    
+
     //MARK: - Доделать изменение цвета кнопки
     @objc func addFavorite (sender: UIButton){
         
-        let image = UIImage(named: "star")
-        let imageFill = UIImage(named: "starFill")
-        var currentImage = image
-        
-        if currentImage == image  {
-            sender.setImage(imageFill, for: .normal)
-            currentImage = imageFill
-        } else if currentImage == imageFill {
-            sender.setImage(image, for: .normal)
-            currentImage = image
+        linkToTrending.addFavourite(cell: self)
+
+        if favoriteStock.tintColor == .lightGray {
+            favoriteStock.tintColor = .orange
+        } else if favoriteStock.tintColor == .orange {
+            favoriteStock.tintColor = .lightGray
         }
         
     }

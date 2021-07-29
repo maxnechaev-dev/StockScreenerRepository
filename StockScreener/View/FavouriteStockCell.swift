@@ -13,6 +13,7 @@ protocol FavouriteStockCellDelegate: class {
 
 class FavouriteStockCell: UICollectionViewCell {
     
+    let coreDataService = CoreDataService()
     weak var delegate: FavouriteStockCellDelegate?
     
     //MARK: - Зависимости
@@ -24,7 +25,7 @@ class FavouriteStockCell: UICollectionViewCell {
     let service = FavouriteStockCellService()
     
     var cellId = "Cell"
-    let symbols = ["MRIN", "AAPL", "AMC", "GE", "AMD"]
+    var symbols = ["MRIN", "AAPL", "AMC", "GE", "AMD"]
     
     
     //MARK: - Создание collectionview
@@ -60,7 +61,7 @@ class FavouriteStockCell: UICollectionViewCell {
     //MARK: - Функция по запросу данных по модели
     
     func load() {
-        service.loadFavouriteStocks(symbols: symbols) { [weak self] elements in
+        service.loadFavouriteStocks(symbols: coreDataService.getSymbolsNamesArray()) { [weak self] elements in
             self?.mostActive = elements
             self?.collectionview.reloadData()
         }
@@ -72,7 +73,7 @@ class FavouriteStockCell: UICollectionViewCell {
     func takeLogo(elementSymbol: String, imageView: UIImageView) {
         
         let symbolForLogo = elementSymbol //получаем текущий symbol
-        let urlLogo = "https://cloud.iexapis.com/stable/stock/\(symbolForLogo)/logo?token=sk_72487b2d2a744574a47183726ead7ba5"
+        let urlLogo = "https://cloud.iexapis.com/stable/stock/\(symbolForLogo)/logo?token=sk_df786d56dc4f49608540541174f42d4a"
         
         dataFetcherService.fetchStocksLogo(urlString: urlLogo) { (companyLogo) in
             guard let companyLogo = companyLogo else { return }
@@ -152,6 +153,12 @@ extension FavouriteStockCell: UICollectionViewDataSource {
         
         //Поставить логотипы компаний
         takeLogo(elementSymbol: element.symbol, imageView: cell.companyLogo)
+        
+        if coreDataService.containsSymbol(with: element.symbol) {
+            cell.favoriteStock.tintColor = .orange
+        } else {
+            cell.favoriteStock.tintColor = .lightGray
+        }
         
         return cell
     }
